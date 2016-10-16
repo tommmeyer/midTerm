@@ -46,9 +46,11 @@ public abstract class Person implements java.io.Serializable {
 		return DOB;
 	}
 
-	public void setDOB(Date DOB){
+	public void setDOB(Date DOB) throws PersonException{
 		this.DOB = DOB;
-		
+		if (this.PrintAge()>=100){
+			throw new PersonException(this, "You're too darn old!!!!");
+		}
 		
 	}
 
@@ -60,8 +62,13 @@ public abstract class Person implements java.io.Serializable {
 		return address;
 	}
 
-	public void setPhone(String newPhone_number) {
+	public void setPhone(String newPhone_number) throws PersonException {
 		phone_number = newPhone_number;
+		String regex = "^\\({1}([0-9]{3})\\){1}-{1}([0-9]{3})-{1}([0-9]{4})$";
+		boolean validate = Pattern.matches(regex, newPhone_number);
+		if (!validate){
+			throw new PersonException(this, "give a valid Phone Number");
+		}
 	
 	}
 
@@ -89,7 +96,7 @@ public abstract class Person implements java.io.Serializable {
 	 */
 
 	public Person(String FirstName, String MiddleName, String LastName,
-			Date DOB, String Address, String Phone_number, String Email)
+			Date DOB, String Address, String Phone_number, String Email) throws PersonException
 	{
 		this.FirstName = FirstName;
 		this.MiddleName = MiddleName;
@@ -97,7 +104,15 @@ public abstract class Person implements java.io.Serializable {
 		this.setDOB(DOB);
 		this.address = Address;
 		this.setPhone(Phone_number);
+		String regex = "^\\({1}([0-9]{3})\\){1}-{1}([0-9]{3})-{1}([0-9]{4})$";
+		boolean validate = Pattern.matches(regex, Phone_number);
+		if (!validate){
+			throw new PersonException(this, "give a valid Phone Number");
+		}
 		this.email_address = Email;
+		if (this.PrintAge()>=100){
+			throw new PersonException(this, "You're too darn old!!!!");
+		}
 		
 	}
 
