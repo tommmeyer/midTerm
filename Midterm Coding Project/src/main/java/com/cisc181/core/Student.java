@@ -1,5 +1,6 @@
 package com.cisc181.core;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -40,5 +41,17 @@ public class Student extends Person {
 	public void PrintName(boolean bnormal)
 	{
 		super.PrintName();
+	}
+	
+	public static double GetGPA(ArrayList<Integer> GPAPoints){
+		double gradePoints =0;
+		for (int i =0; i<GPAPoints.size();i=i+2){
+			gradePoints += (double)GPAPoints.get(i);
+		}
+		double totalCourses=0;
+		for (int i =1; i<GPAPoints.size();i=i+2){
+			totalCourses += (double)GPAPoints.get(i);
+		}
+		return gradePoints/totalCourses;
 	}
 }

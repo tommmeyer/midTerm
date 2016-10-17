@@ -1,5 +1,6 @@
 package com.cisc181.core;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class Course extends Semester {
@@ -8,6 +9,7 @@ public class Course extends Semester {
 	private int gradePoints;
 
 	public Course() {
+		super();
 		this.courseID = UUID.randomUUID();
 	}
 
@@ -39,6 +41,15 @@ public class Course extends Semester {
 
 	public void SetGradePoints(int gradePoint) {
 		this.gradePoints = gradePoint;
+	}
+	
+	public static double AverageGrade(ArrayList<Double> classGrades){
+		Double totalClassGrade = 0.0;
+		for(Double grades : classGrades){
+			totalClassGrade += grades;
+		}
+		Double dataPoints = (double) classGrades.size();
+		return totalClassGrade/dataPoints;
 	}
 
 }
